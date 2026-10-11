@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portofolio Refly K. Batalipu - Mahasiswa Sistem Informasi UNG dan Ketua Divisi Programming UKM Risti.">
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+
+  <title>Pli - Portofolio</title>
+
+  <style>
+
+    :root {
+      --primary: #7a1f2b;        /* maroon */
+      --primary-dark: #5a1520;   /* maroon gelap untuk hover */
+      --tint: #faf3f4;           /* latar lembut untuk section selang-seling */
+      --border: #ead9db;
+      --ink: #2b1a1d;            /* warna teks utama */
+      --muted: #6b5a5d;          /* teks pendukung */
+      --white: #ffffff;
+      --radius: 12px;
+      --max: 1040px;
+    }
+    [data-theme="blue"] {
+      --primary: #1f4e8c;
+      --primary-dark: #163a69;
+      --tint: #f1f6fc;
+      --border: #d3e0f0;
+      --ink: #172233;
+      --muted: #55627a;
+    }
+
+    /* =====================================================
+       2. RESET & DASAR
+       ===================================================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.7;
+      transition: background .3s, color .3s;
+    }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.25; }
+    a { color: var(--primary); }
+    img, svg, iframe { max-width: 100%; height: 100%; display: block; }
+
+    /* Fokus keyboard harus terlihat jelas (aksesibilitas) */
+    :focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+
+    /* Link lompat untuk pengguna keyboard / screen reader */
+    .skip-link {
+      position: absolute; left: 12px; top: -60px;
+      background: var(--primary); color: var(--white);
+      padding: 8px 14px; border-radius: 8px; z-index: 200;
+    }
+    .skip-link:focus { top: 12px; }
+
+    .container { width: min(100% - 2.5rem, var(--max)); margin-inline: auto; }
+    section { padding: 88px 0; }
+    .section-alt { background: var(--tint); }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--primary); margin-bottom: 8px; }
+    .section-desc { color: var(--muted); max-width: 60ch; margin-bottom: 40px; }
+
+    /* =====================================================
+       3. NAVIGASI
+       ===================================================== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 255, 255, .94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-family: Georgia, serif; font-weight: 700; font-size: 1.3rem; color: var(--primary); text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-links a {
+      display: block; padding: 8px 14px; border-radius: 8px;
+      color: var(--ink); text-decoration: none; font-weight: 500; font-size: .95rem;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: var(--tint); }
+    .nav-links a.active { color: var(--primary); background: var(--tint); font-weight: 700; }
+
+    .nav-tools { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--primary); cursor: pointer; font-size: 1.1rem;
+      display: grid; place-items: center; transition: background .2s;
+    }
+    .icon-btn:hover { background: var(--tint); }
+    .menu-btn { display: none; }
+
+    /* =====================================================
+       4. HERO
+       ===================================================== */
+    .hero { padding: 72px 0 88px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--primary); margin-bottom: 12px; }
+    .hero .greeting { color: var(--muted); font-size: 1.05rem; }
+    .typing { font-size: 1.25rem; font-weight: 600; min-height: 2em; margin-bottom: 12px; }
+    .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--primary); margin-left: 3px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+    .hero p.lead { color: var(--muted); max-width: 48ch; margin-bottom: 28px; }
+
+    .btn {
+      display: inline-block; padding: 12px 24px; border-radius: 10px;
+      font-weight: 600; text-decoration: none;
+      border: 2px solid var(--primary); transition: background .2s, color .2s, transform .2s;
+    }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+    .btn-outline { color: var(--primary); background: transparent; margin-left: 8px; }
+    .btn-outline:hover { background: var(--tint); }
+    .btn:active { transform: scale(.97); }
+
+    /* Jendela kode sebagai visual hero */
+    .code-window {
+      background: var(--ink); color: #f3e9ea;
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .18);
+      font-family: Consolas, "Courier New", monospace; font-size: .9rem;
+    }
+    .code-bar { display: flex; gap: 7px; padding: 12px 16px; background: rgba(255, 255, 255, .08); }
+    .code-bar span { width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+    .code-bar span:first-child { background: #ff8a8a; }
+    .code-window pre { padding: 20px; overflow-x: auto; line-height: 1.8; }
+    .c-key { color: #ffb4bd; }
+    .c-str { color: #b8e0c2; }
+    .c-com { color: #9d8d90; }
+
+    /* =====================================================
+       5. TENTANG
+       ===================================================== */
+    .about-grid { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; }
+    .avatar { width: 220px; height: 220px; border-radius: 50%; box-shadow: 0 0 0 6px var(--tint), 0 0 0 8px var(--primary); }
+    .about-text p { margin-bottom: 14px; max-width: 62ch; }
+    .facts { list-style: none; margin-top: 20px; display: grid; gap: 10px; }
+    .facts li { padding-left: 22px; position: relative; }
+    .facts li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+
+    /* =====================================================
+       6. KEAHLIAN
+       ===================================================== */
+    .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      transition: box-shadow .25s, border-color .25s;
+    }
+    .card:hover { border-color: var(--primary); box-shadow: 0 8px 22px rgba(0, 0, 0, .08); }
+    .card h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+    .chips li { background: var(--tint); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: .88rem; }
+
+    /* =====================================================
+       7. PROYEK
+       ===================================================== */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .project { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .thumb { background: var(--primary); height: 120px; display: grid; place-items: center; }
+    .thumb svg { width: 56px; height: 56px; stroke: var(--white); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .project-body { padding: 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .project-body h3 { font-size: 1.15rem; color: var(--ink); }
+    .project-body p { color: var(--muted); font-size: .95rem; flex: 1; }
+
+    /* =====================================================
+       8. KONTAK & FOOTER
+       ===================================================== */
+    .contact-list { list-style: none; display: grid; gap: 12px; margin-bottom: 8px; }
+    .contact-list a { font-weight: 600; }
+    footer { background: var(--primary); color: var(--white); text-align: center; padding: 28px 0; font-size: .92rem; }
+
+    /* Tombol kembali ke atas */
+    .to-top {
+      position: fixed; right: 20px; bottom: 20px; z-index: 90;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+      background: var(--primary); color: var(--white); border-color: var(--primary);
+    }
+    .to-top.show { opacity: 1; pointer-events: auto; }
+
+    /* =====================================================
+       9. ANIMASI
+       ===================================================== */
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Elemen .reveal muncul saat discroll (diatur oleh JavaScript) */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Hormati pengguna yang mematikan animasi di perangkatnya */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* =====================================================
+       10. RESPONSIF (tablet & HP)
+       ===================================================== */
+    @media (max-width: 800px) {
+      section { padding: 64px 0; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-grid { justify-items: center; }
+      .about-text { justify-self: stretch; }
+      .menu-btn { display: grid; }
+      .nav-links {
+        display: none; position: absolute; top: 64px; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; gap: 0;
+        background: var(--white); border-bottom: 1px solid var(--border); padding: 8px 1.25rem 16px;
+      }
+      .nav-links.open { display: flex; }
+      .btn-outline { margin-left: 0; margin-top: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#tentang">Lompat ke konten</a>
+
+  <!-- ================= NAVIGASI ================= -->
+  <header>
+    <div class="container nav">
+      <a href="#beranda" class="logo">Pli</a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#keahlian">Keahlian</a></li>
+        <li><a href="#proyek">Proyek</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+
+      <div class="nav-tools">
+        <!-- Tombol ganti tema: maroon <-> biru -->
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Ganti warna tema" title="Ganti warna tema">&#127912;</button>
+        <!-- Tombol menu untuk layar kecil -->
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">&#9776;</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= BERANDA ================= -->
+    <section class="hero" id="beranda">
+      <div class="container hero-grid">
+        <div>
+          <p class="greeting">Halo, saya</p>
+          <h1>Refly K. Batalipu</h1>
+          <p class="typing" aria-live="polite"><span id="typingText"></span><span class="cursor" aria-hidden="true"></span></p>
+          <p class="lead">Mahasiswa Sistem Informasi yang suka membangun aplikasi web dan Android.</p>
+          <a href="#proyek" class="btn btn-primary">Lihat proyek saya</a>
+          <a href="#kontak" class="btn btn-outline">Hubungi saya</a>
+        </div>
+
+        <div class="code-window" aria-hidden="true">
+          <div class="code-bar"><span></span><span></span><span></span></div>
+<pre><span class="c-com">// profil.js</span>
+<span class="c-key">const</span> pli = {
+  nama: <span class="c-str">"Refly K. Batalipu"</span>,
+  kampus: <span class="c-str">"Universitas Negeri Gorontalo"</span>,
+  prodi: <span class="c-str">"Sistem Informasi"</span>,
+  peran: <span class="c-str">"Ketua Divisi Programming"</span>,
+  organisasi: <span class="c-str">"UKM Risti"</span>,
+  suka: [<span class="c-str">"Web"</span>, <span class="c-str">"Android"</span>, <span class="c-str">"Data"</span>]
+};</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TENTANG ================= -->
+    <section class="section-alt" id="tentang">
+      <div class="container">
+        <h2 class="section-title reveal">Tentang saya</h2>
+        <p class="section-desc reveal">Saya Alumni SMK Negeri 1 Popayato Timur, Jurusan Rekayasa Perangkat Lunak</p>
+
+        <div class="about-grid">
+          <!-- Avatar SVG. Ganti dengan fotomu: <img src="foto.jpg" alt="Foto Pli" class="avatar"> -->
+          <img src="pli.jpeg" class="avatar reveal" title="Refly K. Batalipu">
+          </svg>
+
+
+          <div class="about-text reveal">
+            <p>Saya mahasiswa Sistem Informasi di Universitas Negeri Gorontalo. Di UKM Risti (Riset Teknologi Informasi) saya menjabat sebagai Ketua Divisi Programmin.</p>
+            <p>Saya mengerjakan proyek sistem informasi, aplikasi Android, dan lomba teknologi.</p>
+            <ul class="facts">
+              <li>Berdomisili di wilayah Gorontalo, Indonesia</li>
+              <li>Memimpin tim pengembang BISAL untuk LIDM 2026</li>
+              <li>Siap berbagi ilmu mengnai HTML/CSS, Git Bash, dan GitHub untuk pemula</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KEAHLIAN ================= -->
+    <section id="keahlian">
+      <div class="container">
+        <h2 class="section-title reveal">Keahlian</h2>
+        <p class="section-desc reveal">Teknologi yang pernah saya pakai dalam proyek nyata.</p>
+
+        <div class="skill-grid">
+          <div class="card reveal">
+            <h3>Web</h3>
+            <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>PHP</li><li>MySQL</li><li>Bootstrap</li><li>Tailwind CSS</li><li>Laravel</li></ul>
+          </div><!-- 
+          <div class="card reveal">
+            <h3>Android</h3>
+            <ul class="chips"><li>Kotlin</li><li>Firebase</li><li>Retrofit</li><li>WebView</li><li>WorkManager</li></ul>
+          </div> -->
+          <div class="card reveal">
+            <h3>Alat &amp; kolaborasi</h3>
+            <ul class="chips"><li>Git</li><li>GitHub</li><li>draw.io</li><li>StarUML</li><li>Figma</li></ul>
+          </div>
+          <div class="card reveal">
+            <h3>Desain &amp; MS. Office</h3>
+            <ul class="chips"><li>Photoshop</li><li>Corel Draw</li><li>Canva</li><li>Word</li><li>Powerpoint</li><li>Excel</li></ul>
+          </div>
+          <div class="card reveal">
+            <h3>Soft Skill</h3>
+            <ul class="chips"><li>Komunikasi Verbal</li><li>Komunikasi Non-verbal</li><li>Manajemen Emosi</li><li>Percaya Diri</li><li>Work Team</li></ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROYEK ================= -->
+    <section class="section-alt" id="proyek">
+      <div class="container">
+        <h2 class="section-title reveal">Proyek</h2>
+        <p class="section-desc reveal">Beberapa karya yang pernah saya bangun atau rancang.</p>
+
+        <div class="project-grid">
+         <article class="card project reveal">
+            <div class="thumb">
+              <img src="maleo.png">
+            </div>
+            <div class="project-body">
+              <h3>AI Maleo</h3>
+              <p>Chatbot Budaya Maleo merupakan sistem chatbot berbasis web yang dirancang khusus untuk menyediakan informasi seputar kebudayaan dan daerah Provinsi Gorontalo.</p>
+               <span class="c-com"><a href="https://app.smojo.org/reflybatalipu/AI-Maleo" title="AI-Maleo" style="text-decoration: none;">Lihat Selengkapnya</a></span>
+              <ul class="chips"><li>Smojo</li><li>ChatGPT API</li><li>Budaya Gorontalo</li></ul>
+            </div>
+          </article>
+          <article class="card project reveal">
+            <div class="thumb">
+              <img src="simperss.png">
+            </div>
+            <div class="project-body">
+              <h3>SIMPERS</h3>
+              <p>Sistem informasi manajemen persuratan sekolah berbasis ITIL: surat masuk dan keluar, disposisi dengan indikator SLA, serta arsip digital.</p>
+              <span class="c-com"><a href="https://simpers.42web.io" title="Simpers" style="text-decoration: none;">Lihat Selengkapnya</a></span>
+              <ul class="chips"><li>PHP</li><li>MySQL</li><li>Bootstrap</li></ul>
+
+            </div>
+          </article>
+
+          <article class="card project reveal">
+            <div class="thumb">
+              <img src="prestasi.png">
+            </div>
+            <div class="project-body">
+              <h3>PRESTASI</h3>
+              <p>Presensi Digital Siswa: Sistem informasi Presensi yang terintegrasi antara siswa, guru kelas, gueu mata pelajaran, tata Usaha, Bimbingan konseling, Kepala sekolah.</p>
+               <span class="c-com"><a href="https://prestasi.wuaze.com" title="PRESTASI" style="text-decoration: none;">Lihat Selengkapnya</a></span>
+              <ul class="chips"><li>PHP</li><li>MySQL</li><li>Tailwind CSS</li></ul>
+            </div>
+          </article>
+
+          <article class="card project reveal">
+            <div class="thumb">
+
+              <img src="bisal.png">
+            </div>
+            <div class="project-body">
+              <h3>BISAL</h3>
+              <p>Platform belajar adaptif bagi siswa tunarungu di SLB Negeri Kota Gorontalo, dengan personalisasi materi dan analitik penguasaan belajar. Karya tim untuk LIDM 2026.</p>
+              <span class="c-com"><a href="https://www.youtube.com/watch?v=1j4ga3I6Sqg" title="PRESTASI" style="text-decoration: none;">Lihat Selengkapnya</a></span>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/1j4ga3I6Sqg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <ul class="chips"><li>Gemini API</li><li>Pendidikan inklusif</li></ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KONTAK ================= -->
+    <section id="kontak">
+      <div class="container">
+        <h2 class="section-title reveal">Kontak</h2>
+        <p class="section-desc reveal">Terbuka untuk diskusi, kolaborasi, dan belajar bersama.</p>
+
+        <!-- GANTI alamat di bawah ini dengan data aslimu -->
+        <ul class="contact-list reveal">
+          <li>Email: <a href="mailto:reflybatalipu@email.com">reflybatalipu@email.com</a></li>
+          <li>GitHub: <a href="https://github.com/Reflybatalipu" target="_blank" rel="noopener">github.com/Reflybatalipu</a></li>
+          <li>Instagram: <a href="https://instagram.com/reflybtlpu" target="_blank" rel="noopener">@reflybtlpu</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Refly K. Batalipu</p>
+  </footer>
+
+  <button class="icon-btn to-top" id="toTop" type="button" aria-label="Kembali ke atas">&#8593;</button>
+
+  <script>
+
+    // Cek apakah pengguna meminta animasi dikurangi
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // ---------- 1. Efek mengetik di beranda ----------
+    const roles = [
+      "Mahasiswa Sistem Informasi",
+      "Ketua Divisi Programming UKM Risti",
+      "Pembelajar pengembangan web & Android"
+    ];
+    const typingEl = document.getElementById("typingText");
+    let roleIndex = 0, charIndex = 0, deleting = false;
+
+    function type() {
+      const current = roles[roleIndex];
+      charIndex += deleting ? -1 : 1;
+      typingEl.textContent = current.slice(0, charIndex);
+
+      let delay = deleting ? 35 : 70;
+      if (!deleting && charIndex === current.length) { deleting = true; delay = 1600; }      // jeda setelah selesai mengetik
+      else if (deleting && charIndex === 0) { deleting = false; roleIndex = (roleIndex + 1) % roles.length; delay = 400; }
+      setTimeout(type, delay);
+    }
+    if (reduceMotion) { typingEl.textContent = roles[0]; } else { type(); }
+
+    // ---------- 2. Menu mobile ----------
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", isOpen);
+    });
+    // Tutup menu setelah salah satu link diklik
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // ---------- 3. Ganti tema (maroon <-> biru) ----------
+    const themeBtn = document.getElementById("themeBtn");
+    themeBtn.addEventListener("click", () => {
+      const root = document.documentElement;
+      if (root.getAttribute("data-theme") === "blue") {
+        root.removeAttribute("data-theme");
+      } else {
+        root.setAttribute("data-theme", "blue");
+      }
+    });
+
+    // ---------- 4. Muncul saat discroll (IntersectionObserver) ----------
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);   // cukup sekali
+        }
+      });
+    }, { threshold: 0.15 });
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    // ---------- 5. Tandai menu yang sedang aktif ----------
+    const sections = document.querySelectorAll("main section[id]");
+    const menuLinks = document.querySelectorAll(".nav-links a");
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          menuLinks.forEach(link => {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // ---------- 6. Tombol kembali ke atas ----------
+    const toTop = document.getElementById("toTop");
+    window.addEventListener("scroll", () => {
+      toTop.classList.toggle("show", window.scrollY > 500);
+    });
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  </script>
+</body>
+</html>
